@@ -5,18 +5,25 @@ import {selectUser} from "../context/reducer";
 import {useSelector} from "react-redux";
 import {Avatar} from "@material-ui/core";
 
-function EventInfoBox( {id}) {
+function MatchingBox( {id}) {
     const [name, setName] = useState("No Match");
-    const [date, setDate] = useState(new Date());
+    const [email, setEmail] = useState("");
     const [photo, setPhoto] = useState("");
     const user = useSelector(selectUser);
 
+
+
     useEffect(() => {
-        axios.get("http://localhost:5000/events/" + id)
+        axios.get("http://localhost:5000/matchings/getMatch/" + id)
             .then(res => {
-                console.log(res.data);
-                setName(res.data.name);
-                setDate(res.data.date);
+                for (let i = 0; i < res.data.matchings.length; i++) {
+                    if (res.data.matchings[i].email == user.email) {
+                        setName(res.data.matchings[i].match.name);
+                        setEmail(res.data.matchings[i].match.email);
+                        getAvatar(res.data.matchings[i].match.email);
+                        break;
+                    }
+                }
             })
             .catch(err => alert(err));
     });
@@ -32,14 +39,14 @@ function EventInfoBox( {id}) {
     }
 
     return (
-        <div className="eventInfoBox">
+        <div className="matchingBox">
             <Avatar src={photo} />
             <div classame="text">
                 <h2>{name}</h2>
-                <h3>{date.toString().substr(0, 10)}</h3>
+                <h3>{email}</h3>
             </div>
        </div>
     )
 }
 
-export default EventInfoBox
+export default MatchingBox
