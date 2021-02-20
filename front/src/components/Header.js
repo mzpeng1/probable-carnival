@@ -71,7 +71,7 @@ function Header() {
 
     return (
         <div className="header">
-            <h1>Buddy Match</h1>
+            <h1>branche</h1>
             {fetchLogin()}
             <div className="avatarBox">
                 {user ? (<Avatar src={user.photoURL}/>) : <Avatar />}

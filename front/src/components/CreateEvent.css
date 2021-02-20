@@ -1,0 +1,21 @@
+.infoForm-container{
+    width: 500px;
+    height: auto;
+    background-color: lightblue	;	
+    margin-left: auto;
+    margin-right: auto;
+}
+.infoForm{
+	width: 300px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoForm-counter {
+    display: flex;
+    width: 200px;
+    justify-content: space-evenly;
+}

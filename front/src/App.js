@@ -13,9 +13,9 @@ function App() {
          <Route path="/create" component={CreateEvent}></Route>
          <Route path="/" exact component={Dashboard}></Route>
          <Route path="/event" component={EventDash}></Route>
-        </Router>
+        </Router>			
       </div>
- );
+ );	
 }
 
 export default App;

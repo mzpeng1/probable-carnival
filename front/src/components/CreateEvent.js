@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from "axios";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import "./InfoForm.css";
+import "./CreateEvent.css";
 import FRQBox from "./FRQBox";
 import MCQBox from "./MCQBox";
 import { useDispatch, useSelector } from 'react-redux';
@@ -101,35 +101,38 @@ function CreateEvent() {
 
 
    return (
-        <div className="infoForm">
-            <div className="infoForm__questions">
-            <form onSubmit={onSubmit}>
-                <label>Name of Event</label>
-                <input required type="text" value={name} onChange={e => setName(e.target.value)}></input>
-                <label>Event Password</label>
-                <input type="password" value={password} onChange={e => setPass(e.target.value)}></input>
-                <label>Date</label>
-                <DatePicker selected = {date} onChange={(date) => setDate(date)}></DatePicker>
-                {getFRQs(frqs)}
-                {getMCQs(mcqs)}
-                <input type="submit" value="create event"></input>
-            </form>
+<<<<<<< Updated upstream
+        <div className="infoForm-container">
+            <div className="infoForm">
+                <div className="infoForm-questions">
+                <form onSubmit={onSubmit}>
+                    <label>Name of Event</label>
+                    <input required type="text" value={name} onChange={e => setName(e.target.value)}></input>
+                    <label>Event Password</label>
+                    <input type="password" value={password} onChange={e => setPass(e.target.value)}></input>
+                    <label>Date</label>
+                    <DatePicker selected = {date} onChange={(date) => setDate(date)}></DatePicker>
+                    {getFRQs(frqs)}
+                    {getMCQs(mcqs)}
+                    <input type="submit" value="create event"></input>
+                </form>
+                </div>
+                <div className="infoForm-configure">
+                <label>Number of Free Response Questions</label>
+                <div className="infoForm-counter">
+                    <button onClick={() => decrementFRQ()}>-</button>
+                    <div className="infoForm-frqcounter-display">{numFRQ}</div>
+                    <button onClick={() => setNumFRQ(numFRQ + 1)}>+</button>
+                </div>
+                <label>Number of Multiple Choice Questions</label>
+                <div className="infoForm-counter">
+                    <button onClick={() => decrementMCQ()}>-</button>
+                    <div className="infoForm-mcqcounter-display">{numMCQ}</div>
+                    <button onClick={() => setNumMCQ(numMCQ + 1)}>+</button>
+                </div>
+                </div>
             </div>
-            <div className="infoForm__configure">
-            <label>Number of Free Response Questions</label>
-            <div className="infoForm__counter">
-                <button onClick={() => decrementFRQ()}>-</button>
-                <div className="infoForm__frqcounter__display">{numFRQ}</div>
-                <button onClick={() => setNumFRQ(numFRQ + 1)}>+</button>
-            </div>
-            <label>Number of Multiple Choice Questions</label>
-            <div className="infoForm__counter">
-                <button onClick={() => decrementMCQ()}>-</button>
-                <div className="infoForm__mcqcounter__display">{numMCQ}</div>
-                <button onClick={() => setNumMCQ(numMCQ + 1)}>+</button>
-            </div>
-            </div>
-      </div>
+        </div>
     )
 }
 
