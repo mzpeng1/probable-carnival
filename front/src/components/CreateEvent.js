@@ -101,7 +101,6 @@ function CreateEvent() {
 
 
    return (
-<<<<<<< Updated upstream
         <div className="infoForm-container">
             <div className="infoForm">
                 <div className="infoForm-questions">
