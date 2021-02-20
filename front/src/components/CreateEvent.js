@@ -8,6 +8,9 @@ import MCQBox from "./MCQBox";
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, clearUser, selectUser } from '../context/reducer';
 
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 function CreateEvent() {
     const user = useSelector(selectUser);
     // state for number of frq questions
@@ -101,8 +104,9 @@ function CreateEvent() {
 
 
    return (
-        <div className="infoForm-container">
-            <div className="infoForm">
+       <div className="main">
+        <div className="container">
+            <div className="form">
                 <div className="infoForm-questions">
                 <form onSubmit={onSubmit}>
                     <label>Name of Event</label>
@@ -111,27 +115,28 @@ function CreateEvent() {
                     <input type="password" value={password} onChange={e => setPass(e.target.value)}></input>
                     <label>Date</label>
                     <DatePicker selected = {date} onChange={(date) => setDate(date)}></DatePicker>
+                    <div className="infoForm-configure">
+                    <label>Number of Free Response Questions</label>
+                    <div className="counter">
+                        <button onClick={() => decrementFRQ()}>-</button>
+                        <div className="infoForm-frqcounter-display">{numFRQ}</div>
+                        <button onClick={() => setNumFRQ(numFRQ + 1)}>+</button>
+                    </div>
+                    <label>Number of Multiple Choice Questions</label>
+                    <div className="counter">
+                        <button onClick={() => decrementMCQ()}>-</button>
+                        <div className="infoForm-mcqcounter-display">{numMCQ}</div>
+                        <button onClick={() => setNumMCQ(numMCQ + 1)}>+</button>   
+                    </div>
+                </div>
                     {getFRQs(frqs)}
                     {getMCQs(mcqs)}
-                    <input type="submit" value="create event"></input>
+                    <input type="submit" value="create event"></input>    
                 </form>
-                </div>
-                <div className="infoForm-configure">
-                <label>Number of Free Response Questions</label>
-                <div className="infoForm-counter">
-                    <button onClick={() => decrementFRQ()}>-</button>
-                    <div className="infoForm-frqcounter-display">{numFRQ}</div>
-                    <button onClick={() => setNumFRQ(numFRQ + 1)}>+</button>
-                </div>
-                <label>Number of Multiple Choice Questions</label>
-                <div className="infoForm-counter">
-                    <button onClick={() => decrementMCQ()}>-</button>
-                    <div className="infoForm-mcqcounter-display">{numMCQ}</div>
-                    <button onClick={() => setNumMCQ(numMCQ + 1)}>+</button>
-                </div>
                 </div>
             </div>
         </div>
+    </div>
     )
 }
 
