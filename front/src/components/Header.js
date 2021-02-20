@@ -7,8 +7,6 @@ import axios from 'axios';
 import "./Header.css";
 import {Avatar, Button} from "@material-ui/core";
 
-
-
 function Header() {
     const user = useSelector(selectUser);
     const dispatch = useDispatch(); 
@@ -29,7 +27,8 @@ function Header() {
                 photoURL: res.user.photoURL,
             }
             dispatch(setUser(currUser));
-        }).catch( (err) => alert(err.message));
+        }).catch((err) => alert(err.message));
+        
 
     }
 
@@ -47,11 +46,11 @@ function Header() {
         axios.post("http://localhost:5000/users/add", newUser)
             .then(res => console.log(res.data))
             .catch(err => alert(err));
-
     }
 
     const fetchLogin = () => {
         if (user) {
+            console.log(user);
             axios.get("http://localhost:5000/users/getUser/" + user.email)
                 .then(res => {
                     if (res.data.length > 0){
