@@ -44,7 +44,7 @@ function MCQBox( {id, callBack} ) {
 
     return (
         <div className="mcqBox">
-            <label>Multiple Choice Question</label>
+            <label>MCQ {id}:</label>
             <input type="text" value={name} onChange={(e) => updateName(e.target.value, 0)}></input>
             {generateOptions(options)}
             <button type="button" onClick={() => incrementOptions()}>Add Option</button>

@@ -11,7 +11,7 @@ function FRQBox({ id, callBack}) {
 
     return (
         <div className="frqBox">
-            <label>Free Response Question:</label>
+            <label>FRQ {id}:</label>
             <input type="text" value={val} onChange={(e) => updateData(e.target.value)}></input>
         </div>
     )

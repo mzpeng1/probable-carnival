@@ -116,21 +116,19 @@ function CreateEvent() {
                     <label>Date</label>
                     <DatePicker selected = {date} onChange={(date) => setDate(date)}></DatePicker>
                     <div className="infoForm-configure">
-                    <label>Number of Free Response Questions</label>
-                    <div className="counter">
-                        <button onClick={() => decrementFRQ()}>-</button>
-                        <div className="infoForm-frqcounter-display">{numFRQ}</div>
-                        <button onClick={() => setNumFRQ(numFRQ + 1)}>+</button>
-                    </div>
-                    <label>Number of Multiple Choice Questions</label>
-                    <div className="counter">
-                        <button onClick={() => decrementMCQ()}>-</button>
-                        <div className="infoForm-mcqcounter-display">{numMCQ}</div>
-                        <button onClick={() => setNumMCQ(numMCQ + 1)}>+</button>   
-                    </div>
                 </div>
+                    <label>Free Response Questions:</label>
                     {getFRQs(frqs)}
+                    <div className="counter">
+                        <button onClick={() => decrementFRQ()}>Remove FRQ</button>
+                        <button onClick={() => setNumFRQ(numFRQ + 1)}>Add FRQ</button>
+                    </div>
+                    <label>Multiple Choice Questions:</label>
                     {getMCQs(mcqs)}
+                    <div className="counter">
+                        <button onClick={() => decrementMCQ()}>Remove MCQ</button>
+                        <button onClick={() => setNumMCQ(numMCQ + 1)}>Add MCQ</button>   
+                    </div>
                     <input type="submit" value="create event"></input>    
                 </form>
                 </div>
