@@ -1,26 +1,40 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../context/reducer';
-import { selectEvents } from "../context/eventReducer";
+import { selectEvents, setEvents } from "../context/eventReducer";
 import "./Dashboard.css";
 import EventInfoBox from "./EventInfoBox";
+import axios from 'axios';
 
 function Dashboard() {
     const user = useSelector(selectUser);
     const events = useSelector(selectEvents);
     const eventList = [];
 
-    const generateEvents = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
         if (user) {
-            eventList.push(<EventInfoBox key="a" id="6028f004837df47dd66b94f3"></EventInfoBox>);
-            eventList.push(<EventInfoBox key="b" id="60290bf9b195a72841c33a89"></EventInfoBox>);
+            axios.get("http://localhost:5000/users/getUser/" + user.email)
+                .then(res => {
+                    console.log(res.data);
+                    dispatch(setEvents(res.data[0].events));
+                })
         }
-       return eventList;
+    }, [user])
+
+    const generateEvents = () => {
+        if (events) {
+            for (let i = 0; i < events.length; i++) {
+                eventList.push(<EventInfoBox key={i} id={events[i]} />);
+            }
+        }
+        return eventList;
     }
 
     return (
         <div className="dashboard">
-            {user ? (<h2>Matches:</h2>) : (<h2>Sign In to See Events</h2>)}
+            {user ? (<h2>Your Events:</h2>) : (<h2>Sign In to See Events</h2>)}
             {generateEvents()}
         </div>
     )
