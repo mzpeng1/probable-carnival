@@ -73,17 +73,20 @@ function CreateEvent() {
 
     const event = {
         name: "",
+        password: "",
         date: new Date(),
         fieldQuestions: fq,
         responses: []
     };
 
     const [name, setName] = useState("");
+    const [password, setPass] = useState("");
     const [date, setDate] = useState(new Date());
 
     const onSubmit = () => {
         event.name = name;
         event.date = date;
+        event.password = password;
         for (let i = 0; i < numFRQ; i++) {
             fq.FRQS.push(frqData[i]);
         }
@@ -102,7 +105,9 @@ function CreateEvent() {
             <div className="infoForm__questions">
             <form onSubmit={onSubmit}>
                 <label>Name of Event</label>
-                <input type="text" value={name} onChange={e => setName(e.target.value)}></input>
+                <input required type="text" value={name} onChange={e => setName(e.target.value)}></input>
+                <label>Event Password</label>
+                <input type="password" value={password} onChange={e => setPass(e.target.value)}></input>
                 <label>Date</label>
                 <DatePicker selected = {date} onChange={(date) => setDate(date)}></DatePicker>
                 {getFRQs(frqs)}

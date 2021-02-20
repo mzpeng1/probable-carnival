@@ -13,12 +13,14 @@ router.route('/add').post((req, res) => {
     const fieldQuestions = req.body.fieldQuestions;
     const responses = req.body.responses;
     const date = Date.parse(req.body.date);
+    const password = req.body.name;
 
     const newEvent = new Event({
         name,
         date,
         fieldQuestions,
-        responses
+        responses,
+        password
     });
 
     newEvent.save()
