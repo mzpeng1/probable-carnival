@@ -1,7 +1,35 @@
 import React, { useState } from 'react';
 import MCQBoxOption from "./MCQBoxOption";
 
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+// material ui
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: '7.5px 0px',
+    width: '100%',
+  },
+  buttonWrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+  },
+  button:{
+      border: 'none',
+      width: '47.5%',
+      borderRadius: '3px',
+      padding: '7px',
+      margin: '10px 0px 15px 0px',
+      transitionDuration: '0.4s',
+      backgroundColor: 'f2f2f2',
+  },
+}));
+
 function MCQBox( {id, callBack} ) {
+
+    // material ui
+    const classes = useStyles();
+
     const [name, setName] = useState("");
     const [val, setVal] = useState([]);
     const [numOptions, setNumOptions] = useState(0);
@@ -42,13 +70,24 @@ function MCQBox( {id, callBack} ) {
         }
     }
 
+    const label = "Question " + ++id + ":";
     return (
         <div className="mcqBox">
-            <label>MCQ {id}:</label>
-            <input type="text" value={name} onChange={(e) => updateName(e.target.value, 0)}></input>
+            <TextField
+              required
+              className={classes.root}
+              id="outlined-required"
+              label= {label}
+              variant="outlined"
+              value={name}
+              onChange={(e) => updateName(e.target.value, 0)}
+            />
             {generateOptions(options)}
-            <button type="button" onClick={() => incrementOptions()}>Add Option</button>
-            <button type="button" onClick={() => decrementOptions()}>Remove Option</button>
+
+            <div className={classes.buttonWrapper}>
+                <button className={classes.button} type="button" onClick={() => incrementOptions()}>Add Option</button>
+                <button className={classes.button} type="button" onClick={() => decrementOptions()}>Remove Option</button>
+            </div>
         </div>
     )
 }
