@@ -6,23 +6,51 @@ import {selectCurr, setCurrent} from "../context/currentReducer";
 import "./Dashboard.css";
 import EventInfoBox from "./EventInfoBox";
 import UserAddEvent from './UserAddEvent';
-import Modal from '@material-ui/core/Modal';
+import { Modal, Button, Snackbar }from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
+const useStyles = makeStyles((theme) => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+}));
 
 function Dashboard() {
+    const classes = useStyles()
     const user = useSelector(selectUser);
     const events = useSelector(selectEvents);
     const eventList = [];
+    const [showSnackbar, setSnackbar] = useState(false);
+    const [snackbarMes, setMessage] = useState("");
+    const [severity, setSeverity] = useState("");
     const current = useSelector(selectCurr);
     const [openModal, setOpen] = useState(false);
+
+    const openSnackbar = (message, severityStatus) => {
+        setMessage(message)
+        setSnackbar(true);
+        setSeverity(severityStatus)
+    }
+
+    const CloseSnackbar = () => {
+        setSnackbar(false);
+    }
 
     const handleOpen = () => {
         setOpen(true);
     }
 
+    const closeModal = () => {
+        setOpen(false);
+    }
+
     const handleClose = () => {
         setOpen(false);
+        openSnackbar("Event Joined!", "success")
     }
 
     const dispatch = useDispatch();
@@ -55,13 +83,24 @@ function Dashboard() {
             {user ? (<h2>Your Events:</h2>) : (<h2>Sign In to See Events</h2>)}
             {user ? (<button type="button"><a href="/create">Create Event</a></button>) : (<></>)}
             {generateEvents()}
-            {user ? (<button onClick={handleOpen}>Join an Event!</button>) : null}
+            {user ? (<Button color="primary" className="joinEvent" variant="contained" onClick={handleOpen}>Join an Event!</Button>) : null}
             <Modal
                 open={openModal}
-                onClose={handleClose}
+                className={classes.modal}
+                onClose={closeModal}
             >
-                <UserAddEvent />
+                <UserAddEvent callback={handleClose}/>
             </Modal>
+            <Snackbar
+                open={showSnackbar}
+                message={snackbarMes}
+                autoHideDuration={4000}
+                onClose={CloseSnackbar}
+            >
+                <Alert onClose={CloseSnackbar} severity={severity}>
+                    {snackbarMes}
+                </Alert>
+            </Snackbar>
         </div>
     )
 }
