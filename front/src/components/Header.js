@@ -20,27 +20,25 @@ function Header() {
 
     const signIn = async() => {
         const response = await auth.signInWithPopup(provider);
-                let mongoUser = await axios.get("http://localhost:5000/users/getUser/" + response.user.email);
-
-        console.log(mongoUser);
+        let mongoUser = await axios.get("http://localhost:5000/users/getUser/" + response.user.email);
         if (mongoUser.data.length > 0) {
             dispatch(setEvents(mongoUser.data[0].events));
         } else {
             console.log("creating new user");
-            createNewUser(mongoUser);
-            mongoUser = await axios.get("http://localhost:5000/users/getUser/" + response.user.email);
-            console.log(mongoUser);
+            createNewUser(response.user);
         }
 
-        const currUser = {
-            email: response.user.email,
-            name: response.user.displayName,
-            photoURL: response.user.photoURL,
-            id: mongoUser.data[0]._id
-        }
-
-        dispatch(setUser(currUser));
-        console.log(currUser);
+        axios.get("http://localhost:5000/users/getUser/" + response.user.email)
+            .then(res => {
+                const currUser = {
+                    email: response.user.email,
+                    name: response.user.displayName,
+                    photoURL: response.user.photoURL,
+                    id: res.data[0]._id
+                }
+                dispatch(setUser(currUser));
+                console.log(currUser);
+            })
     }
 
     const signOut= () => {
@@ -49,9 +47,9 @@ function Header() {
     }
 
     const createNewUser = (user) => {
-        newUser.displayName = user.data[0].displayName;
-        newUser.email = user.data[0].email;
-        newUser.photo = user.data[0].photoURL;
+        newUser.displayName = user.displayName;
+        newUser.email = user.email;
+        newUser.photo = user.photoURL;
         newUser.events = [];
         console.log(newUser);
         axios.post("http://localhost:5000/users/add", newUser)
