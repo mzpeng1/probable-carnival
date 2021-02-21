@@ -83,8 +83,8 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-            {user ? (<h2>Your Events:</h2>) : (<h2>Sign In to See Events</h2>)}
-            {generateEvents()}
+            {user ? (<h2>Your Events:</h2>) : (<h2 className="midAlign">Sign In to See Events</h2>)}
+            {events.length == 0 && user ? <h4 className="noEventText">Join Some Events and They Will Show Up Here!</h4> : generateEvents()}
             {user ? (<Button color="primary" className="joinEvent" variant="contained" onClick={handleOpen}>Join an Event!</Button>) : null}
             <Modal
                 open={openModal}

@@ -1,0 +1,14 @@
+.adminDash {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard > h2 {
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.createButton {
+    align-self: center;
+    width: 20em;
+}

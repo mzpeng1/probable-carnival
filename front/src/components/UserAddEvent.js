@@ -27,6 +27,7 @@ function UserAddEvent({callback}) {
         console.log(user)
         const eventObj = await axios.get(`http://localhost:5000/events/getEvent/${eventName}/${password}`)
             .then(async (eventObj) => {
+                console.log(user)
                 const userObj = await axios.post(`http://localhost:5000/users/${user.id}/update/${eventObj.data._id}`)
                 .then((res) => {
                     console.log(res)

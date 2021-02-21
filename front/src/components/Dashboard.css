@@ -13,6 +13,16 @@
     align-self: center;
 }
 
+.midAlign {
+    align-self: center;
+}
+
+.noEventText {
+    padding-top: 2em;
+    align-self: center;
+    padding-bottom: 5em;
+}
+
 a {
    text-decoration: none; 
    color: white;
