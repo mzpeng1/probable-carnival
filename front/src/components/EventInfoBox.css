@@ -2,10 +2,11 @@
     border-radius: 20px;
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
-    box-shadow: 2px 5px 10px pink;
-    background-color: #FFE4E1;
+    box-shadow: 2px 5px 10px lightblue;
+    background-color: rgb(156, 215, 252);
     display: flex;
     flex-direction: row;
     align-items: center;
