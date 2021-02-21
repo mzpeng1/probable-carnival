@@ -23,7 +23,7 @@ function Dashboard() {
                     dispatch(setEvents(res.data[0].events));
                 })
         }
-    }, [user])
+    }, [user, dispatch])
 
     const setCurrId = (id) => {
         dispatch(setCurrent(id));
