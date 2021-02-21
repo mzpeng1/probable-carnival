@@ -1,8 +1,14 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import MCQResponseOption from "./MCQResponseOption";
 
 function MCQResponseBox({id, values, callBack}) {
-    const [val, setVal] = useState([]);
+    const init = [];
+    useEffect(() => {
+        for (let i = 0; i < values.length - 1; i++) {
+            init.push(0);
+        }
+    }, [])
+    const [val, setVal] = useState(init);
     const options = [];
 
     const updateData = (input, index) => {

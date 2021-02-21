@@ -16,7 +16,7 @@ let MCQResponse = new Schema({
         type: String
     },
     response: {
-        type: [Boolean]
+        type: String
     },
 });
 
@@ -29,4 +29,6 @@ let responseForm = new Schema({
     },
 });
 
-export default responseForm;
+const Response = mongoose.model("responses", responseForm);
+
+export default Response;

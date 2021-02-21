@@ -18,9 +18,13 @@ let eventSchema = new Schema({
         type: fieldsSchema,
         required: true,
     },
-    responses: {
-        type: [responseForm]
-    },
+    responses: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'response'
+        }
+    ]
+
 }, {
     timestamps: true,
 });

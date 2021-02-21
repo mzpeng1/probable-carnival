@@ -2,8 +2,12 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import FRQResponseBox from "./FRQResponseBox";
 import MCQResponseBox from './MCQResponseBox';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../context/reducer';
 
-function ResponseForm() {
+function ResponseForm({id, name, pass}) {
+    const user = useSelector(selectUser);
+
     const [frqQuestions, setFrqQuestions] = useState([]);
     const [mcqQuestions, setMcqQuestions] = useState([]);
     const [frqData, setFrqData] = useState([]);
@@ -43,18 +47,50 @@ function ResponseForm() {
     useEffect(() => {
         axios.get("http://localhost:5000/events/601f41153a6bb737ccfe7284")
             .then(res => {
-                console.log(res.data);
                 setMcqQuestions(res.data.fieldQuestions.MCQS);
                 setFrqQuestions(res.data.fieldQuestions.FRQS);
-                console.log(frqQuestions);
             }).catch(err => alert(err));
     }, [])
 
+    const response = {
+        userEmail: "",
+        eventId: "",
+        eventName: "",
+        eventPassword: "",
+        Responses: []
+    }
+    
+    const onSubmit = () => {
+        response.userEmail = user.email;
+        response.eventId = user.name;
+        response.eventName = user.name;
+        response.eventPassword = user.email;
+        for (let i = 0; i < frqData.length; i++) {
+            response.Responses.push(frqData[i]);
+        }
+        console.log(mcqData);
+        for (let i = 0; i < mcqData.length; i++) {
+            let newString = ""
+            for (let j = 0; j < mcqData[i].length; j++) {
+                newString += mcqData[i];
+                if (j !== mcqData[i].length - 1) {
+                    newString += ", ";
+                }
+            }
+            response.Responses.push(newString);
+        }
+        console.log(response);
+        console.log(response.Responses);
+    }
+
     return (
         <div>
-            {getFRQs(frqs)}
-            {getMCQs(mcqs)}
-        </div>
+            <form onSubmit={onSubmit}>
+                {getFRQs(frqs)}
+                {getMCQs(mcqs)}
+                <button>Submit</button>
+            </form>
+       </div>
     )
 }
 
