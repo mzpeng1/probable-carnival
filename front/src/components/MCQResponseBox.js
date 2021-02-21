@@ -26,8 +26,10 @@ function MCQResponseBox({id, values, callBack}) {
     }
 
     return (
+
+
         <div>
-            <label>{values[0]}</label>
+            <h4>{values[0]}</h4>
             {generateOptions(options)}
         </div>
     )

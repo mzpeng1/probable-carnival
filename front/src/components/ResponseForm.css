@@ -15,44 +15,11 @@
     border-radius: 10px;
 }   
 .form{
-	width: 300px;
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
     padding: 50px 0px;
 }
-.form h4{
-    margin: 40px 0px 10px 0px;
-    font-size: 1.1em;
-    font-weight: 400;
-}
-
-
-
-.counter {
-    display: flex;
-    justify-content: space-between;
-}
-.counter button{
-    padding: 10px 0px;
-    margin-top: 10px;
-    border: none;
-    width: 47%;
-    border-radius: 4px;
-    transition-duration: 0.4s;
-    background-color: #eaeaea;
-}
-
-button:hover{
-    background-color: #e0e0e0;
-}
-
-
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
 .submitButton{
     border-radius: 4px;
     border: none;
@@ -67,5 +34,3 @@ form {
 .submitButton:hover{
     background-color: #0060fc;
 }
-
-

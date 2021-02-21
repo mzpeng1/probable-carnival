@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
+import "./ResponseForm.css";
 import FRQResponseBox from "./FRQResponseBox";
 import MCQResponseBox from './MCQResponseBox';
 import { useSelector } from 'react-redux';
@@ -93,13 +94,17 @@ function ResponseForm({id, name, pass}) {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                {getFRQs(frqs)}
-                {getMCQs(mcqs)}
-                <button>Submit</button>
-            </form>
-       </div>
+        <div className="main">
+            <div className="container">
+                <div className="form">
+                    <form onSubmit={onSubmit}>
+                        {getFRQs(frqs)}
+                        {getMCQs(mcqs)}
+                        <button className="submitButton">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     )
 }
 
