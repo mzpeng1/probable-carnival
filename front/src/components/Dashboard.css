@@ -13,6 +13,11 @@
     align-self: center;
 }
 
+a {
+   text-decoration: none; 
+   color: white;
+}
+
 .modal {
     display: flex;
     align-items: center;
