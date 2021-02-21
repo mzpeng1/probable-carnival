@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, {useState} from 'react';
-import { Snackbar, Modal } from '@material-ui/core';
+import { Snackbar, Modal, Button } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { selectUser } from "../context/reducer";
 import { useSelector } from "react-redux"
+import './UserAddEvent.css'
 
 function UserAddEvent({callback}) {
     const [eventName, setEventName] = useState("");
@@ -49,22 +50,29 @@ function UserAddEvent({callback}) {
     return (
         <>
             <div className="userAddEvent">
-                <h2>Join an Event</h2>
-                <input 
-                    type="text" 
-                    placeholder="Event Name" 
-                    value={eventName} 
-                    onChange={e => setEventName(e.target.value)}
-                >
-                </input>
-                <input 
-                    type="password" 
-                    placeholder="Event Password"
-                    value={password}
-                    onChange={e => setPass(e.target.value)}
-                >  
-                </input>
-                <button onClick={joinEvent}>Join Event</button>
+                <h2 className="addEventHead">Add Event</h2>
+                <div className="inputContainer">
+                    <input 
+                        type="text" 
+                        placeholder="Event Name" 
+                        value={eventName} 
+                        onChange={e => setEventName(e.target.value)}
+                        className='inputField'
+                    >
+                    </input>
+                </div>
+                <div className="inputContainer">
+                    <input 
+                        type="password" 
+                        placeholder="Event Password"
+                        value={password}
+                        onChange={e => setPass(e.target.value)}
+                        className='inputField'
+                    >  
+                    </input>
+                </div>
+                
+                <Button variant="contained" color="secondary" onClick={joinEvent}>Join Event</Button>
             </div>
             <Snackbar
                 open={showSnackbar}

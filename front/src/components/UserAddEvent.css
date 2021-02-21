@@ -1,0 +1,15 @@
+.inputField {
+    border-radius: 7px;
+    padding-top: 10px;
+    align-items: center;
+}
+
+.inputContainer {
+    height: 50px;
+    justify-content: center;
+    align-self: center;
+}
+
+.addEventHead {
+    padding-bottom: 20px;
+}

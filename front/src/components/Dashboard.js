@@ -88,7 +88,7 @@ function Dashboard() {
             {user ? (<Button color="primary" className="joinEvent" variant="contained" onClick={handleOpen}>Join an Event!</Button>) : null}
             <Modal
                 open={openModal}
-                className={classes.modal}
+                className="modal"
                 onClose={closeModal}
             >
                 <UserAddEvent callback={handleClose}/>
