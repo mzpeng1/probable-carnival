@@ -3,6 +3,7 @@ import axios from "axios";
 import "./EventInfoBox.css";
 import {useSelector, useDispatch} from "react-redux";
 import { clearCurrent, setCurrent } from '../context/currentReducer';
+import { Button } from '@material-ui/core';
 
 function EventInfoBox( {id, callBack}) {
     const [name, setName] = useState("No Match");
@@ -28,11 +29,14 @@ function EventInfoBox( {id, callBack}) {
 
     return (
         <div className="eventInfoBox">
-            <div classame="text">
-                <h2>{name}</h2>
-                <h3>{date.toString().substr(0, 10)}</h3>
-                <button type="button" onClick={() => dispatchCurrent()}><a href="/event">View Event</a></button>
-            </div>
+                <div className="dueDate">
+                    <p>Due By:</p>
+                    <h3 className="dueDate">{date.toString().substr(0, 10)}</h3>
+                </div>
+                <div>
+                <h2 className="surveyName">{name}</h2>
+                </div>
+                <Button className="dispatch" color="default" onClick={() => dispatchCurrent()}><a className="link" href='/event'>View Event</a></Button>
        </div>
     )
 }

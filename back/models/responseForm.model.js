@@ -22,6 +22,6 @@ let responseForm = new Schema({
     }
 });
 
-const Response = mongoose.model("responses", responseForm);
+const Response = mongoose.model("response", responseForm);
 
 export default Response;
