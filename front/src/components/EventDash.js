@@ -25,7 +25,7 @@ const EventDash = (props) => {
             <div className="eventDash">
                 <h1>{event ? event.name : ""}</h1>
                 <div className="dashboard">
-                    <div className="number"><h2>Current number <br></br>of responses: {event ? event.responses.length : 0}</h2></div>
+                    <div className="number"><h4>Current number of responses: {event ? event.responses.length : 0}</h4></div>
                 </div>
             </div>
             <ResponseForm id={current}/>
