@@ -18,8 +18,7 @@ function App() {
             <Router>
               <Route path="/create" component={CreateEvent}></Route>
               <Route path="/" exact component={Dashboard}></Route>
-              <Route path="/response" component={ResponseForm}></Route>
-              <Route path="/event" component={EventDash}></Route>
+              <Route path="/event/:id/" component={EventDash}></Route>
             </Router>			
            </div>
         </PersistGate>

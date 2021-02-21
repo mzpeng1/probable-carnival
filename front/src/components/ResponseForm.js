@@ -5,16 +5,19 @@ import FRQResponseBox from "./FRQResponseBox";
 import MCQResponseBox from './MCQResponseBox';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../context/reducer';
-import { selectCurr } from '../context/currentReducer';
+import { selectEvents } from '../context/eventReducer';
 
-function ResponseForm({id, name, pass}) {
+const ResponseForm = (props) => {
+
     const user = useSelector(selectUser);
-    const current = useSelector(selectCurr);
+    const userEvents = useSelector(selectEvents);
+    const current = props.id
 
     const [frqQuestions, setFrqQuestions] = useState([]);
     const [mcqQuestions, setMcqQuestions] = useState([]);
     const [frqData, setFrqData] = useState([]);
     const [mcqData, setMcqData] = useState([[]]);
+    const [canView, userCanView] = useState("false");
 
     const frqs = [];
     const mcqs = [];
@@ -52,7 +55,14 @@ function ResponseForm({id, name, pass}) {
             .then(res => {
                 setMcqQuestions(res.data.fieldQuestions.MCQS);
                 setFrqQuestions(res.data.fieldQuestions.FRQS);
+                console.log(res.data)
+                console.log(userEvents)
+                var inEvent = userEvents.some((event) => event === res.data._id);
+                // TODO: Check if they already finished it
+                inEvent ? userCanView(true) : userCanView(false)
+                
             }).catch(err => alert(err));
+            
     }, [])
 
     const response = {
@@ -96,7 +106,7 @@ function ResponseForm({id, name, pass}) {
     }
 
     return (
-        <div className="main">
+        canView ? (<div className="main">
             <div className="container">
                 <div className="form">
                     <form onSubmit={onSubmit}>
@@ -106,7 +116,7 @@ function ResponseForm({id, name, pass}) {
                     </form>
                 </div>
             </div>
-        </div>
+        </div>) : null
     )
 }
 

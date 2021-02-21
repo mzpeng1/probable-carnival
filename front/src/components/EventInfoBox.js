@@ -22,7 +22,7 @@ function EventInfoBox( {id, callBack}) {
     const dispatchCurrent = () => {
         axios.get("http://localhost:5000/events/" + id) 
             .then(res => {
-                dispatch(setCurrent(id));
+                dispatch(setCurrent(res));
             })
             .catch(err => console.error(err));
     }
@@ -36,7 +36,7 @@ function EventInfoBox( {id, callBack}) {
                 <div>
                 <h2 className="surveyName">{name}</h2>
                 </div>
-                <Button className="dispatch" color="default" onClick={() => dispatchCurrent()}><a className="link" href='/event'>View Event</a></Button>
+                <Button className="dispatch" color="default" onClick={dispatchCurrent}><a className="link" href={`/event/${id}`}>View Event</a></Button>
        </div>
     )
 }

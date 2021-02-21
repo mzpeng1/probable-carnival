@@ -73,6 +73,7 @@ function Dashboard() {
         if (events) {
             for (let i = 0; i < events.length; i++) {
                 eventList.push(<EventInfoBox key={i} id={events[i] } />);
+                console.log(events[i])
             }
         }
         return eventList;

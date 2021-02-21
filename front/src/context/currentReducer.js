@@ -6,7 +6,7 @@ export const currentSlice = createSlice({
         value: ""
     },
     reducers: {
-        setEvents: (state, action) => {
+        setCurrent: (state, action) => {
             state.value = action.payload;
         },
         clearEvents: (state) => {
