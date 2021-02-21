@@ -27,9 +27,9 @@ function UserAddEvent() {
         console.log(user)
         const eventObj = await axios.get(`http://localhost:5000/events/getEvent/${eventName}/${password}`)
             .then(async (eventObj) => {
-                const userObj = await axios.post(`http://localhost:5000/${user.id}/update/${eventObj._id}`)
+                const userObj = await axios.post(`http://localhost:5000/users/${user.id}/update/${eventObj.data._id}`)
                 .then((res) => {
-                    console.log(userObj)
+                    console.log(res)
                     OpenSnackbar("Event Joined!", "success")
                 })
                 .catch(OpenSnackbar("Unable to join event", "error"))
