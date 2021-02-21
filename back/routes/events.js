@@ -57,11 +57,10 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Event.findById(req.params.id)
         .then(event => {
-            event.username = req.body.username;
-            event.description = req.body.description;
-            event.duration = Number(req.body.duration);
-            event.date = Date.parse(req.body.date);
-
+            let temp = event.responses;
+            temp.push("6031c27ffd8cda42961dad4a");
+            event.responses = temp;
+            console.log(event);
             event.save()
                 .then(() => res.json('Event updated'))
                 .catch(err => res.status(400).json('Error: ' + err))

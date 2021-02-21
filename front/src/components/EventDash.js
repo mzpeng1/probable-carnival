@@ -10,14 +10,16 @@ const EventDash = (props) => {
     const current = params.id;
     const user = useSelector(selectUser);
     const [event, setEvent] = useState(null);
+    const [numResponses, setNumResponses] = useState(0);
 
-    useEffect(() => {
-        axios.get("http://localhost:5000/events/" + current)
-            .then(res=> {
-                setEvent(res.data)
-                console.log(res.data)
+    useEffect(async() => {
+        let result = await axios.get("http://localhost:5000/events/" + current)
+                setEvent(result.data)
+        console.log(result);
+        axios.get("http://localhost:5000/responses/getResponse/" + result.data.name)
+            .then(res => {
+                setNumResponses(res.data.length);
             })
-            .catch(err => console.log(err));
     },[])
     
     return (
@@ -25,7 +27,7 @@ const EventDash = (props) => {
             <div className="eventDash">
                 <h1>{event ? event.name : ""}</h1>
                 <div className="dashboard">
-                    <div className="number"><h4>Current number of responses: {event ? event.responses.length : 0}</h4></div>
+                    <div className="number"><h4>Current number of responses: {event ? numResponses : 0}</h4></div>
                 </div>
             </div>
             <ResponseForm id={current}/>

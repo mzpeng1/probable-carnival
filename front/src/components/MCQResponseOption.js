@@ -13,10 +13,10 @@ function MCQResponseOption( {id, callBack, qName} ) {
 
     // material ui
     const [state, setState] = React.useState({
-        checkedA: true,
-        checkedB: true,
-        checkedF: true,
-        checkedG: true,
+        checkedA: false,
+        checkedB: false,
+        checkedF: false,
+        checkedG: false,
       });
 
       const handleChange = (event) => {
@@ -35,7 +35,7 @@ function MCQResponseOption( {id, callBack, qName} ) {
                     color="primary"
                   />
                 }
-                label="qName"
+                label={qName}
               />
         </div>
     )

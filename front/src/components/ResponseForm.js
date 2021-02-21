@@ -12,6 +12,8 @@ const ResponseForm = (props) => {
     const user = useSelector(selectUser);
     const userEvents = useSelector(selectEvents);
     const current = props.id
+    const [eventName, setEventName] = useState(null);
+    const [pass, setPass] = useState(null);
 
     const [frqQuestions, setFrqQuestions] = useState([]);
     const [mcqQuestions, setMcqQuestions] = useState([]);
@@ -56,6 +58,8 @@ const ResponseForm = (props) => {
                 setMcqQuestions(res.data.fieldQuestions.MCQS);
                 setFrqQuestions(res.data.fieldQuestions.FRQS);
                 console.log(res.data)
+                setEventName(res.data.name);
+                setPass(res.data.password);
                 console.log(userEvents)
                 var inEvent = userEvents.some((event) => event === res.data._id);
                 // TODO: Check if they already finished it
@@ -77,9 +81,9 @@ const ResponseForm = (props) => {
     const onSubmit = () => {
         response.userName = user.name;
         response.userEmail = user.email;
-        response.eventId = user.id;
-        response.eventName = user.name;
-        response.eventPassword = user.email;
+        response.eventId = current;
+        response.eventName = eventName;
+        response.eventPassword = pass;
         for (let i = 0; i < frqData.length; i++) {
             response.Responses.push(frqData[i]);
         }
@@ -101,7 +105,9 @@ const ResponseForm = (props) => {
             response.Responses.push(newString);
         }
         axios.post("http://localhost:5000/responses/add", response)
-            .then(res => console.log(res.data))
+            .then(res => {
+                console.log(res.data);
+            })
             .catch(err => console.error(err));
     }
 

@@ -24,6 +24,23 @@ router.route('/getResponse').get((req, res) => {
         })
         .catch(err => res.status(400).json("No event named " + req.headers.name + " found."))
 });
+router.route('/getResponse/:name').get((req, res) => {
+    Response.find({ eventName: req.params.name })
+        .then(response => {
+            /*for (var i = 0; i < response.length; i++) {
+                if (response[i].eventPassword !== req.headers.password) {
+                    res.status(401).json("Error: The password to this event is not correct.") ;
+                    res.json(response);
+                    res.end();
+                    break;
+                    }
+            }*/ 
+            res.json(response);
+            res.end();
+            
+        })
+        .catch(err => res.status(400).json("No event named " + req.headers.name + " found."))
+});
 router.route('/add').post((req, res) => {
     const userName = req.body.userName;
     const userEmail = req.body.userEmail;
@@ -41,7 +58,7 @@ router.route('/add').post((req, res) => {
     });
 
     newResponse.save()
-        .then(() => res.json('Event added!'))
+        .then((stuff) => res.json(stuff))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
