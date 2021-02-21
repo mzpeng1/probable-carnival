@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import eventsRouter from "./routes/events.js";
 import usersRouter from "./routes/users.js";
 import matchingsRouter from "./routes/matchings.js"
+import responsesRouter from "./routes/responses.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ connection.once('open', () => {
 app.use('/events', eventsRouter);
 app.use('/users', usersRouter);
 app.use('/matchings', matchingsRouter);
+app.use('/responses', responsesRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

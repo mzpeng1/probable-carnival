@@ -2,8 +2,12 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import FRQResponseBox from "./FRQResponseBox";
 import MCQResponseBox from './MCQResponseBox';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../context/reducer';
 
-function ResponseForm() {
+function ResponseForm({id, name, pass}) {
+    const user = useSelector(selectUser);
+
     const [frqQuestions, setFrqQuestions] = useState([]);
     const [mcqQuestions, setMcqQuestions] = useState([]);
     const [frqData, setFrqData] = useState([]);
@@ -43,18 +47,59 @@ function ResponseForm() {
     useEffect(() => {
         axios.get("http://localhost:5000/events/601f41153a6bb737ccfe7284")
             .then(res => {
-                console.log(res.data);
                 setMcqQuestions(res.data.fieldQuestions.MCQS);
                 setFrqQuestions(res.data.fieldQuestions.FRQS);
-                console.log(frqQuestions);
             }).catch(err => alert(err));
     }, [])
 
+    const response = {
+        userName: "",
+        userEmail: "",
+        eventId: "",
+        eventName: "",
+        eventPassword: "",
+        Responses: []
+    }
+    
+    const onSubmit = () => {
+        response.userName = user.name;
+        response.userEmail = user.email;
+        response.eventId = user.id;
+        response.eventName = user.name;
+        response.eventPassword = user.email;
+        for (let i = 0; i < frqData.length; i++) {
+            response.Responses.push(frqData[i]);
+        }
+        console.log(mcqData);
+        for (let i = 0; i < mcqData.length; i++) {
+            let newString = ""
+            for (let j = 0; j < mcqData[i].length; j++) {
+                newString += mcqData[i][j];
+                if (j !== mcqData[i].length - 1) {
+                    newString += ", ";
+                }
+            }
+            if (mcqData[i].length === 0) {
+                for (let j = 0; j< mcqQuestions[i].length - 2; j++) {
+                    newString += "0, ";
+                }
+                newString += "0";
+            }
+            response.Responses.push(newString);
+        }
+        axios.post("http://localhost:5000/responses/add", response)
+            .then(res => console.log(res.data))
+            .catch(err => console.error(err));
+    }
+
     return (
         <div>
-            {getFRQs(frqs)}
-            {getMCQs(mcqs)}
-        </div>
+            <form onSubmit={onSubmit}>
+                {getFRQs(frqs)}
+                {getMCQs(mcqs)}
+                <button>Submit</button>
+            </form>
+       </div>
     )
 }
 
