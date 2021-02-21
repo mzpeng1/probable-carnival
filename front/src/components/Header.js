@@ -27,7 +27,7 @@ function Header() {
             dispatch(setEvents(mongoUser.data[0].events));
         } else {
             console.log("creating new user");
-            createNewUser(user);
+            createNewUser(mongoUser);
             mongoUser = await axios.get("http://localhost:5000/users/getUser/" + response.user.email);
             console.log(mongoUser);
         }
@@ -49,9 +49,9 @@ function Header() {
     }
 
     const createNewUser = (user) => {
-        newUser.displayName = user.name;
-        newUser.email = user.email;
-        newUser.photo = user.photoURL;
+        newUser.displayName = user.data[0].displayName;
+        newUser.email = user.data[0].email;
+        newUser.photo = user.data[0].photoURL;
         newUser.events = [];
         console.log(newUser);
         axios.post("http://localhost:5000/users/add", newUser)
