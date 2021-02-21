@@ -4,6 +4,7 @@ import CreateEvent from "./components/CreateEvent";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import ResponseForm from './components/ResponseForm';
+import AdminDash from "./components/AdminDash";
 import EventDash from "./components/EventDash";
 import { Provider } from 'react-redux';
 import store, { persistor } from './context/store';
@@ -20,6 +21,7 @@ function App() {
               <Route path="/" exact component={Dashboard}></Route>
               <Route path="/response" component={ResponseForm}></Route>
               <Route path="/event" component={EventDash}></Route>
+              <Route path="/admin" component={AdminDash}></Route>
             </Router>			
            </div>
         </PersistGate>

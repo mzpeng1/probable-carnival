@@ -10,6 +10,7 @@ import { Modal, Button, Snackbar }from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -50,6 +51,7 @@ function Dashboard() {
 
     const handleClose = () => {
         setOpen(false);
+        window.location.reload(false);
         openSnackbar("Event Joined!", "success")
     }
 
@@ -72,7 +74,8 @@ function Dashboard() {
     const generateEvents = () => {
         if (events) {
             for (let i = 0; i < events.length; i++) {
-                eventList.push(<EventInfoBox key={i} id={events[i] } />);
+                console.log(events[i]);
+                eventList.push(<EventInfoBox key={i} thisId={events[i]} />);
             }
         }
         return eventList;
@@ -81,7 +84,6 @@ function Dashboard() {
     return (
         <div className="dashboard">
             {user ? (<h2>Your Events:</h2>) : (<h2>Sign In to See Events</h2>)}
-            {user ? (<button type="button"><a href="/create">Create Event</a></button>) : (<></>)}
             {generateEvents()}
             {user ? (<Button color="primary" className="joinEvent" variant="contained" onClick={handleOpen}>Join an Event!</Button>) : null}
             <Modal
