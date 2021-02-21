@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, {useState} from 'react';
-import { Snackbar } from '@material-ui/core';
+import { Snackbar, Modal } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { selectUser } from "../context/reducer";
 import { useSelector } from "react-redux"
 
-function UserAddEvent() {
+function UserAddEvent({callback}) {
     const [eventName, setEventName] = useState("");
     const [password, setPass] = useState("");
     const [showSnackbar, setSnackbar] = useState(false);
@@ -30,7 +30,7 @@ function UserAddEvent() {
                 const userObj = await axios.post(`http://localhost:5000/users/${user.id}/update/${eventObj.data._id}`)
                 .then((res) => {
                     console.log(res)
-                    OpenSnackbar("Event Joined!", "success")
+                    callback();
                 })
                 .catch(OpenSnackbar("Unable to join event", "error"))
             })

@@ -7,3 +7,18 @@
     margin-top: 50px;
     margin-left: 20px;
 }
+
+.joinEvent {
+    width: 20em;
+    align-self: center;
+}
+
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightslategray;
+    border: 2px solid #000;
+    box-shadow: inset;
+    padding: 100px;
+}
