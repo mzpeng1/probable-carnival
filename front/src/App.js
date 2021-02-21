@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import CreateEvent from "./components/CreateEvent";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
-import EventDash from "./components/EventDash";
+import ResponseForm from './components/ResponseForm';
 
 function App() {
     return (
@@ -12,7 +12,7 @@ function App() {
         <Router>
          <Route path="/create" component={CreateEvent}></Route>
          <Route path="/" exact component={Dashboard}></Route>
-         <Route path="/event" component={EventDash}></Route>
+         <Route path="/response" exact component={ResponseForm}></Route>
         </Router>			
       </div>
  );	
