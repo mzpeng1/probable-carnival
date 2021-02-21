@@ -18,18 +18,29 @@ function Header() {
         events: []
     }
 
-    const signIn = () => {
-        auth.signInWithPopup(provider).then( res => {
-            console.log(res.user);
-            const currUser = {
-                email: res.user.email,
-                name: res.user.displayName,
-                photoURL: res.user.photoURL,
-            }
-            dispatch(setUser(currUser));
-        }).catch((err) => alert(err.message));
-        
+    const signIn = async() => {
+        const response = await auth.signInWithPopup(provider);
+                let mongoUser = await axios.get("http://localhost:5000/users/getUser/" + response.user.email);
 
+        console.log(mongoUser);
+        if (mongoUser.data.length > 0) {
+            dispatch(setEvents(mongoUser.data[0].events));
+        } else {
+            console.log("creating new user");
+            createNewUser(user);
+            mongoUser = await axios.get("http://localhost:5000/users/getUser/" + response.user.email);
+            console.log(mongoUser);
+        }
+
+        const currUser = {
+            email: response.user.email,
+            name: response.user.displayName,
+            photoURL: response.user.photoURL,
+            id: mongoUser.data[0]._id
+        }
+
+        dispatch(setUser(currUser));
+        console.log(currUser);
     }
 
     const signOut= () => {
@@ -51,15 +62,7 @@ function Header() {
     const fetchLogin = () => {
         if (user) {
             console.log(user);
-            axios.get("http://localhost:5000/users/getUser/" + user.email)
-                .then(res => {
-                    if (res.data.length > 0){
-                        dispatch(setEvents(res.data[0].events));
-                    } else {
-                        console.log("creating new user");
-                        createNewUser(user);
-                    }})
-                .catch(err => alert(err));
+            
             return (<>
             <Button variant="contained" color="primary" onClick={() => signOut()}>sign out</Button>
             </>)

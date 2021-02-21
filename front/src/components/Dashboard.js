@@ -2,15 +2,17 @@ import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../context/reducer';
 import { selectEvents, setEvents } from "../context/eventReducer";
+import {selectCurr, setCurrent} from "../context/currentReducer";
 import "./Dashboard.css";
 import EventInfoBox from "./EventInfoBox";
 import axios from 'axios';
+
 
 function Dashboard() {
     const user = useSelector(selectUser);
     const events = useSelector(selectEvents);
     const eventList = [];
-
+    const current = useSelector(selectCurr);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -22,6 +24,10 @@ function Dashboard() {
                 })
         }
     }, [user])
+
+    const setCurrId = (id) => {
+        dispatch(setCurrent(id));
+    }
 
     const generateEvents = () => {
         if (events) {
@@ -36,6 +42,7 @@ function Dashboard() {
         <div className="dashboard">
             {user ? (<h2>Your Events:</h2>) : (<h2>Sign In to See Events</h2>)}
             {generateEvents()}
+            <button onClick={() => console.log(current)}>Button</button>
         </div>
     )
 }
