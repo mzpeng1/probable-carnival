@@ -1,4 +1,8 @@
 import React, {useState} from 'react'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
 function MCQResponseOption( {id, callBack, qName} ) {
     const [b, setB] = useState(1);
@@ -6,10 +10,33 @@ function MCQResponseOption( {id, callBack, qName} ) {
         b ? setB(0) : setB(1);
         callBack(b, id);
     }
+
+    // material ui
+    const [state, setState] = React.useState({
+        checkedA: true,
+        checkedB: true,
+        checkedF: true,
+        checkedG: true,
+      });
+
+      const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+        updateData();
+      };
+
     return (
         <div className="mcqResponseOption">
-            <input type="checkbox" onChange={(e) => updateData()} />
-            <label>{qName}</label>
+            <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={state.checkedB}
+                    onChange={handleChange}
+                    name="checkedB"
+                    color="primary"
+                  />
+                }
+                label="qName"
+              />
         </div>
     )
 }
