@@ -5,9 +5,11 @@ import FRQResponseBox from "./FRQResponseBox";
 import MCQResponseBox from './MCQResponseBox';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../context/reducer';
+import { selectCurr } from '../context/currentReducer';
 
 function ResponseForm({id, name, pass}) {
     const user = useSelector(selectUser);
+    const current = useSelector(selectCurr);
 
     const [frqQuestions, setFrqQuestions] = useState([]);
     const [mcqQuestions, setMcqQuestions] = useState([]);
@@ -46,7 +48,7 @@ function ResponseForm({id, name, pass}) {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:5000/events/601f41153a6bb737ccfe7284")
+        axios.get("http://localhost:5000/events/" + current)
             .then(res => {
                 setMcqQuestions(res.data.fieldQuestions.MCQS);
                 setFrqQuestions(res.data.fieldQuestions.FRQS);

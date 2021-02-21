@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import "./EventInfoBox.css";
-import {selectUser} from "../context/reducer";
 import {useSelector, useDispatch} from "react-redux";
-import {Avatar} from "@material-ui/core";
-import { setCurrent } from '../context/currentReducer';
+import { clearCurrent, setCurrent } from '../context/currentReducer';
 
 function EventInfoBox( {id, callBack}) {
     const [name, setName] = useState("No Match");
@@ -20,11 +18,20 @@ function EventInfoBox( {id, callBack}) {
             .catch(err => alert(err));
     });
 
+    const dispatchCurrent = () => {
+        axios.get("http://localhost:5000/events/" + id) 
+            .then(res => {
+                dispatch(setCurrent(id));
+            })
+            .catch(err => console.error(err));
+    }
+
     return (
         <div className="eventInfoBox">
             <div classame="text">
                 <h2>{name}</h2>
                 <h3>{date.toString().substr(0, 10)}</h3>
+                <button type="button" onClick={() => dispatchCurrent()}><a href="/event">View Event</a></button>
             </div>
        </div>
     )

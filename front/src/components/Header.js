@@ -71,7 +71,7 @@ function Header() {
 
     return (
         <div className="header">
-            <h1>branche</h1>
+            <h1><a href="/">branche</a></h1>
             {fetchLogin()}
             <div className="avatarBox">
                 {user ? (<Avatar src={user.photoURL}/>) : <Avatar />}

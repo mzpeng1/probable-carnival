@@ -44,7 +44,7 @@ function Dashboard() {
     const generateEvents = () => {
         if (events) {
             for (let i = 0; i < events.length; i++) {
-                eventList.push(<EventInfoBox key={i} id={events[i]} />);
+                eventList.push(<EventInfoBox key={i} id={events[i] } />);
             }
         }
         return eventList;
@@ -53,6 +53,7 @@ function Dashboard() {
     return (
         <div className="dashboard">
             {user ? (<h2>Your Events:</h2>) : (<h2>Sign In to See Events</h2>)}
+            {user ? (<button type="button"><a href="/create">Create Event</a></button>) : (<></>)}
             {generateEvents()}
             {user ? (<button onClick={handleOpen}>Join an Event!</button>) : null}
             <Modal

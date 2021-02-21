@@ -4,6 +4,8 @@
     justify-content: center;
     height: auto;
     padding: 20px 30px;
+    box-shadow: 5px 7px 10px lightgray;
+    margin-bottom: 30px;
 }
 
 .header h1 {
@@ -23,4 +25,14 @@
 
 .avatarBox > .username {
     font-size: 10pt;
+}
+
+.header a {
+    font-family: Playfair display, serif;
+    text-decoration: none;
+    color: black;
+}
+
+.header a:hover {
+    color: brown;
 }
