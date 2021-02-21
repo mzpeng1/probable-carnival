@@ -2,31 +2,24 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-let FRQResponse = new Schema({
-    title: {
-        type: String
-    },
-    response: {
-        type: String
-    },
-});
-
-let MCQResponse = new Schema({
-    title: {
-        type: String
-    },
-    response: {
-        type: String
-    },
-});
-
 let responseForm = new Schema({
-    FRQResponses: {
-        type: [FRQResponse]
+    userName: {
+        type: String
     },
-    MCQResponses: {
-        type: [MCQResponse]
+    userEmail: {
+        type: String,
     },
+    Responses: [String],
+    eventId: {
+        type: Schema.Types.ObjectId,
+        ref: "event"
+    },
+    eventName: {
+        type: String,
+    },
+    eventPassword: {
+        type: String,
+    }
 });
 
 const Response = mongoose.model("responses", responseForm);

@@ -53,6 +53,7 @@ function ResponseForm({id, name, pass}) {
     }, [])
 
     const response = {
+        userName: "",
         userEmail: "",
         eventId: "",
         eventName: "",
@@ -61,8 +62,9 @@ function ResponseForm({id, name, pass}) {
     }
     
     const onSubmit = () => {
+        response.userName = user.name;
         response.userEmail = user.email;
-        response.eventId = user.name;
+        response.eventId = user.id;
         response.eventName = user.name;
         response.eventPassword = user.email;
         for (let i = 0; i < frqData.length; i++) {
@@ -72,15 +74,22 @@ function ResponseForm({id, name, pass}) {
         for (let i = 0; i < mcqData.length; i++) {
             let newString = ""
             for (let j = 0; j < mcqData[i].length; j++) {
-                newString += mcqData[i];
+                newString += mcqData[i][j];
                 if (j !== mcqData[i].length - 1) {
                     newString += ", ";
                 }
             }
+            if (mcqData[i].length === 0) {
+                for (let j = 0; j< mcqQuestions[i].length - 2; j++) {
+                    newString += "0, ";
+                }
+                newString += "0";
+            }
             response.Responses.push(newString);
         }
-        console.log(response);
-        console.log(response.Responses);
+        axios.post("http://localhost:5000/responses/add", response)
+            .then(res => console.log(res.data))
+            .catch(err => console.error(err));
     }
 
     return (
