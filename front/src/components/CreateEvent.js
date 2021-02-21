@@ -11,7 +11,19 @@ import { setUser, clearUser, selectUser } from '../context/reducer';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
+// material ui 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: '6px 0px',
+  },
+}));
+
 function CreateEvent() {
+
+    // material ui
+    const classes = useStyles();
+
+
     const user = useSelector(selectUser);
     // state for number of frq questions
     const [numFRQ, setNumFRQ] = useState(0);
@@ -103,33 +115,60 @@ function CreateEvent() {
     }
 
 
+
+
    return (
        <div className="main">
         <div className="container">
             <div className="form">
                 <div className="infoForm-questions">
                 <form onSubmit={onSubmit}>
-                    <label>Name of Event</label>
-                    <input required type="text" value={name} onChange={e => setName(e.target.value)}></input>
-                    <label>Event Password</label>
-                    <input type="password" value={password} onChange={e => setPass(e.target.value)}></input>
-                    <label>Date</label>
-                    <DatePicker selected = {date} onChange={(date) => setDate(date)}></DatePicker>
+                    <TextField
+                      className={classes.root}
+                      required
+                      id="outlined-required"
+                      label="Name of Event"
+                      variant="outlined"
+                      value={name} 
+                      onChange={e => setName(e.target.value)}
+                    />
+                    <TextField
+                      className={classes.root}
+                      id="outlined-password-input"
+                      label="Event Password"
+                      type="password"
+                      autoComplete="current-password"
+                      variant="outlined"
+                      value={password} onChange={e => setPass(e.target.value)}
+                    />
+                    <TextField
+                        id="datetime-local"
+                        label="Date and Time"
+                        type="datetime-local"
+                        className={classes.root}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        selected = {date} 
+                        onChange={(date) => setDate(date)}
+                      />
                     <div className="infoForm-configure">
                 </div>
-                    <label>Free Response Questions:</label>
+                    <h4>Free Response Questions:</h4>
                     {getFRQs(frqs)}
                     <div className="counter">
-                        <button onClick={() => decrementFRQ()}>Remove FRQ</button>
                         <button onClick={() => setNumFRQ(numFRQ + 1)}>Add FRQ</button>
+                        <button onClick={() => decrementFRQ()}>Remove 
+                        FRQ</button>
                     </div>
-                    <label>Multiple Choice Questions:</label>
+                    <h4>Multiple Choice Questions:</h4>
                     {getMCQs(mcqs)}
                     <div className="counter">
+                        <button onClick={() => setNumMCQ(numMCQ + 1)}>Add MCQ</button> 
                         <button onClick={() => decrementMCQ()}>Remove MCQ</button>
-                        <button onClick={() => setNumMCQ(numMCQ + 1)}>Add MCQ</button>   
+                          
                     </div>
-                    <input type="submit" value="create event"></input>    
+                    <input className="submitButton" type="submit" value="Create Event"></input>    
                 </form>
                 </div>
             </div>
