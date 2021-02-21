@@ -34,6 +34,20 @@ router.route('/:id').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 })
 
+router.route('/getEvent/:name/:password').get((req, res) => {
+    Event.findOne({ name: req.params.name })
+        .then(event => {
+            console.log(event)
+            console.log(event.password)
+            console.log(event.name)
+            console.log(req.params.password)
+            return (event.password !== req.params.password) ?
+                res.status(401).json("Error: The password to this event is not correct.") :
+                res.json(event)
+        })
+        .catch(err => res.status(400).json("No event named " + req.params.name + " found."))
+});
+
 router.route('/:id').delete((req, res) => {
     Event.findByIdAndDelete(req.params.id)
         .then(() => res.json('Event deleted.'))

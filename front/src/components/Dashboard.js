@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../context/reducer';
 import { selectEvents, setEvents } from "../context/eventReducer";
 import {selectCurr, setCurrent} from "../context/currentReducer";
 import "./Dashboard.css";
 import EventInfoBox from "./EventInfoBox";
+import UserAddEvent from './UserAddEvent';
+import Modal from '@material-ui/core/Modal';
 import axios from 'axios';
 
 
@@ -13,6 +15,16 @@ function Dashboard() {
     const events = useSelector(selectEvents);
     const eventList = [];
     const current = useSelector(selectCurr);
+    const [openModal, setOpen] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+    }
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -42,7 +54,13 @@ function Dashboard() {
         <div className="dashboard">
             {user ? (<h2>Your Events:</h2>) : (<h2>Sign In to See Events</h2>)}
             {generateEvents()}
-            <button onClick={() => console.log(current)}>Button</button>
+            {user ? (<button onClick={handleOpen}>Join an Event!</button>) : null}
+            <Modal
+                open={openModal}
+                onClose={handleClose}
+            >
+                <UserAddEvent />
+            </Modal>
         </div>
     )
 }

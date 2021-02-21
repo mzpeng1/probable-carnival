@@ -26,5 +26,21 @@ router.route('/add').post((req, res) => {
     }).catch(err => res.status(400).json('Error: ' + err));
 })
 
+router.route('/:user/update/:id').post((req, res) => {
+    User.findById(req.params.user)
+        .then((user) => {
+            user.displayName = user.displayName;
+            user.email = user.email;
+            user.photo = user.photo;
+            user.events = user.events.concat(Event.findById(req.params.id));
+
+            user.save()
+                .then(() => res.json("Updated User!"))
+                .catch((err) => res.status(400).json("Error: " + err))
+        })
+        .catch((err) => res.status(400).json("Error: " + err))
+})
+
+
 
 export default router;
