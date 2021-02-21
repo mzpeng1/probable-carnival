@@ -93,7 +93,7 @@ function Dashboard() {
             <Snackbar
                 open={showSnackbar}
                 message={snackbarMes}
-                autoHideDuration={4000}
+                autoHideDuration={6000}
                 onClose={CloseSnackbar}
             >
                 <Alert onClose={CloseSnackbar} severity={severity}>

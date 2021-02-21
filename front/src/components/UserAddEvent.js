@@ -68,7 +68,7 @@ function UserAddEvent({callback}) {
             <Snackbar
                 open={showSnackbar}
                 message={snackbarMes}
-                autoHideDuration={4000}
+                autoHideDuration={6000}
             >
                 <Alert onClose={CloseSnackbar} severity={severity}>
                     {snackbarMes}
